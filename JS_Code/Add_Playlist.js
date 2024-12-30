@@ -1,4 +1,5 @@
-const fetchPlaylistTracks = async (playlistId) => {
+function getPlaylistTracks() {
+  const fetchPlaylistTracks = async (playlistId) => {
     const accessToken = 'your_access_token'; // Replace with the token you retrieved earlier
   
     try {
@@ -29,4 +30,5 @@ const fetchPlaylistTracks = async (playlistId) => {
       addTracksToLikedSongs(trackIds);
     }
   });
+}
   

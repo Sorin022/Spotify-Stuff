@@ -1,4 +1,5 @@
-const addTracksToLikedSongs = async (tracks) => {
+function addTracksToLikedSongs() {
+  const addTracksToLikedSongs = async (tracks) => {
     const accessToken = 'your_access_token'; // Replace with the token you retrieved earlier
   
     try {
@@ -25,4 +26,5 @@ const addTracksToLikedSongs = async (tracks) => {
   // Example track IDs
   const trackIds = ['3n3Ppam7vgaVa1iaRUc9Lp', '7ouMYWpwJ422jRcDASZB7P'];
   addTracksToLikedSongs(trackIds);
+}
   
