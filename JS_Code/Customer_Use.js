@@ -16,7 +16,7 @@ function customer_login() {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ ids: ['3n3Ppam7vgaVa1iaRUc9Lp'] }),
+    body: JSON.stringify({ ids: ['4A65rF6f8pCaAvYqgcfaWN'] }),
     })
     .then((response) => {
         if (response.ok) {
@@ -26,5 +26,4 @@ function customer_login() {
         }
     })
     .catch(console.error);
-
 }
