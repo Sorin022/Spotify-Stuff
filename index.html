@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="music_app.css" />
 
     <!-- Where we add the files with the functions in it-->
+    <script type="text/javascript" src="JS_Code/global.js"></script>
     <script type="text/javascript" src="JS_Code/Add_Playlist.js"></script>
     <script type="text/javascript" src="JS_Code/Add_LikedSongs.js"></script>
     <script type="text/javascript" src="JS_Code/Customer_Use.js"></script>
@@ -28,6 +29,14 @@
     <h1>Upload a TXT File</h1>
     <input type="file" id="fileInput" accept=".txt">
     <textarea id="fileContent" readonly placeholder="File content will appear here..."></textarea>
+
+    <input type="button"
+        id = "customer_login"
+        name="customer_login"
+        class="button"
+        value="Add Songs" 
+        tabindex="2"
+        onclick="customer_login();">
 
     <script>
         const fileInput = document.getElementById('fileInput');
