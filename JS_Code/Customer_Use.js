@@ -7,9 +7,12 @@ function customer_login() {
         return params.get('access_token');
     };
     
-    const accessToken = getTokenFromUrl(); //getting the token and setting the global
-    console.log("Access Token: ", accessToken); //output for error checking
+    access_token = getTokenFromUrl(); //getting the token and setting the global
+    console.log("Access Token: ", access_token); //output for error checking
 
+    XML_SpotifySong();
+
+    /*
     fetch('https://api.spotify.com/v1/me/tracks', {  //puts a song in your liked playlist for the proof of concepts
     method: 'PUT',
     headers: {
@@ -26,4 +29,5 @@ function customer_login() {
         }
     })
     .catch(console.error);
+    */
 }

@@ -1,0 +1,2 @@
+function XML_SpotifySong() {
+}

@@ -1,3 +1,13 @@
+<!--
+TO DO:
+
+1) parse the xml
+2) once getting all the data then find the song on spotify
+3) create a new playlist for this import
+3) add to custom playlist
+
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -23,11 +33,12 @@
     <script type="text/javascript" src="JS_Code/Add_Playlist.js"></script>
     <script type="text/javascript" src="JS_Code/Add_LikedSongs.js"></script>
     <script type="text/javascript" src="JS_Code/Customer_Use.js"></script>
+    <script type="text/javascript" src="JS_Code/XML_SpotifyID.js"></script>
 </head>
 
 <body>
-    <h1>Upload a TXT File</h1>
-    <input type="file" id="fileInput" accept=".txt">
+    <h1>Upload a XML File</h1>
+    <input type="file" id="fileInput" accept=".xml">
     <textarea id="fileContent" readonly placeholder="File content will appear here..."></textarea>
 
     <input type="button"
@@ -38,20 +49,25 @@
         tabindex="2"
         onclick="customer_login();">
 
+    
+    <!-- Need to make this part take the name out of the xml and then add them as something -->
     <script>
         const fileInput = document.getElementById('fileInput');
         const fileContent = document.getElementById('fileContent');
 
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
-            if (file && file.type === 'text/plain') {
+            if (file && file.type === 'text/xml') {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     fileContent.textContent = e.target.result;
+                    //adding the xml file to the global value and then using when the customer login is established
+                    //from customer_login()
+                    xml_file = e.target.result;
                 };
                 reader.readAsText(file);
             } else {
-                alert('Please upload a valid .txt file.');
+                alert('Please upload a valid .xml file.');
             }
         });
     </script>
