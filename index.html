@@ -34,11 +34,12 @@ TO DO:
     <script type="text/javascript" src="JS_Code/Add_LikedSongs.js"></script>
     <script type="text/javascript" src="JS_Code/Customer_Use.js"></script>
     <script type="text/javascript" src="JS_Code/XML_SpotifyID.js"></script>
+    <script type="text/javascript" src="JS_Code/choose_file.js"></script>
 </head>
 
 <body>
     <h1>Upload a XML File</h1>
-    <input type="file" id="fileInput" accept=".xml">
+    <input type="file" id="fileInput" accept=".xml" onclick="choose_file();">
     <textarea id="fileContent" readonly placeholder="File content will appear here..."></textarea>
 
     <input type="button"
@@ -48,28 +49,5 @@ TO DO:
         value="Add Songs" 
         tabindex="2"
         onclick="customer_login();">
-
-    
-    <!-- Need to make this part take the name out of the xml and then add them as something -->
-    <script>
-        const fileInput = document.getElementById('fileInput');
-        const fileContent = document.getElementById('fileContent');
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file && file.type === 'text/xml') {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    fileContent.textContent = e.target.result;
-                    //adding the xml file to the global value and then using when the customer login is established
-                    //from customer_login()
-                    xml_file = e.target.result;
-                };
-                reader.readAsText(file);
-            } else {
-                alert('Please upload a valid .xml file.');
-            }
-        });
-    </script>
 </body>
 </html>

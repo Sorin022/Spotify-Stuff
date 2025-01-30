@@ -6,4 +6,4 @@ const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&re
 )}&response_type=token&scope=${encodeURIComponent(scopes)}`; //redirect url for the loging and such
 const access_token = null; //access token of the user
 const songs_to_add = null; //the list of songs to add
-const xml_file = null;
+let xml_file = null;
