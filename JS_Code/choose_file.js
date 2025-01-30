@@ -1,20 +1,19 @@
 function choose_file(){
-    let test = null;
     const fileInput = document.getElementById('fileInput');
     const fileContent = document.getElementById('fileContent');
 
     fileInput.addEventListener('change', (event) => {
         const file = event.target.files[0];
-        if (file && file.type === 'text/xml') {
-            const reader = new FileReader();
+        if (file && file.type === 'text/xml') { //checks the input to see if the file is actually xml or not
+            const reader = new FileReader(); //makes the new file reader
             reader.onload = function(e) {
-                xml_file = e.target.result;
-                fileContent.textContent = xml_file;
-                console.log("File content assigned:", xml_file);
+                xml_file = e.target.result; //assigns he contents of the input file to the global var
+                fileContent.textContent = xml_file; //used for the file output
+                console.log("File content assigned:", xml_file); //debugging to make sure
             };
-            reader.readAsText(file);
+            reader.readAsText(file); //actually sets the file
         } else {
-            alert('Please upload a valid .xml file.');
+            alert('Please upload a valid .xml file.'); //error if the choosen file is not xml
         }
     });
 }

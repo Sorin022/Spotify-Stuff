@@ -2,8 +2,8 @@ function customer_login() {
     window.location.href = authUrl; // Redirect the user
 
     const getTokenFromUrl = () => { // function for getting the token from the spotify login
-        const hash = window.location.hash;
-        const params = new URLSearchParams(hash.substring(1));
+        let hash = window.location.hash;
+        let params = new URLSearchParams(hash.substring(1));
         return params.get('access_token');
     };
     
@@ -12,7 +12,6 @@ function customer_login() {
 
     XML_SpotifySong();
 
-    /*
     fetch('https://api.spotify.com/v1/me/tracks', {  //puts a song in your liked playlist for the proof of concepts
     method: 'PUT',
     headers: {
@@ -29,5 +28,4 @@ function customer_login() {
         }
     })
     .catch(console.error);
-    */
 }
