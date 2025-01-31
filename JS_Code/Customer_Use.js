@@ -18,7 +18,6 @@ window.onload = function () {
     if(check == 0){ // only does it on the second load
         check = 1;
     }else{ //resets it
-        check = 0;
         access_token = getTokenFromUrl(); // Get the token after redirect
         console.log("Access Token:", access_token); // Successfully retrieved token
     }
