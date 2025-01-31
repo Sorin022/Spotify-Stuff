@@ -10,12 +10,32 @@ function getTokenFromUrl() {
 
 // Check for the token when the page loads
 window.onload = function () {
-    access_token = getTokenFromUrl(); //Get the token after redirect
+    access_token = getTokenFromUrl(); // Get the token after redirect
 
-    if (access_token) { //if it get the token then show
-        console.log("Access Token:", access_token);
-        XML_SpotifySong();
-    } else { //if not found then output this
+    if (access_token) {
+        console.log("Access Token:", access_token); // Successfully retrieved token
+        fetchSpotifyData(); // Call function to use the token
+    } else {
         console.log("No access token found. Please log in.");
     }
 };
+
+// Function to make API request
+function fetchSpotifyData() {
+    fetch('https://api.spotify.com/v1/me/tracks', { 
+        method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${access_token}`, // Use correct variable
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ids: ['4A65rF6f8pCaAvYqgcfaWN'] }),
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Song added successfully!');
+        } else {
+            console.error('Failed to add song:', response.statusText);
+        }
+    })
+    .catch(console.error);
+}
