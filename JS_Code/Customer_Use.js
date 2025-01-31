@@ -14,28 +14,7 @@ window.onload = function () {
 
     if (access_token) {
         console.log("Access Token:", access_token); // Successfully retrieved token
-        fetchSpotifyData(); // Call function to use the token
     } else {
-        console.log("No access token found. Please log in.");
+        console.log("No access token found. Please log in."); //Did not get token
     }
 };
-
-// Function to make API request
-function fetchSpotifyData() {
-    fetch('https://api.spotify.com/v1/me/tracks', { 
-        method: 'PUT',
-        headers: {
-            Authorization: `Bearer ${access_token}`, // Use correct variable
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ids: ['4A65rF6f8pCaAvYqgcfaWN'] }),
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Song added successfully!');
-        } else {
-            console.error('Failed to add song:', response.statusText);
-        }
-    })
-    .catch(console.error);
-}
