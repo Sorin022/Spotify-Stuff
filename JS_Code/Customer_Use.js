@@ -12,11 +12,17 @@ const getTokenFromUrl = () => {
 
 // Run this function when the page loads to check for a token
 window.onload = function () {
+    if(xml_file !== null){
+        XML_SpotifySong();
+    }else{
+
+    }
+    
     access_token = getTokenFromUrl(); // Get the token after redirection
 
     if (access_token) {
         console.log("Access Token:", access_token); // Check if token exists
     } else {
-        console.log("No access token found. Please log in.");
+        console.log("No access token found. Please log in."); //Output if the token was not found
     }
 };
