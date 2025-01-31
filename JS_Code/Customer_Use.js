@@ -12,11 +12,7 @@ const getTokenFromUrl = () => {
 
 // Run this function when the page loads to check for a token
 window.onload = function () {
-    if(xml_file !== null){
-        XML_SpotifySong();
-    }else{
-
-    }
+    console.log(xml_file);
     
     access_token = getTokenFromUrl(); // Get the token after redirection
 
