@@ -1,5 +1,3 @@
-let check = 0;
-
 function customer_login() {
     window.location.href = authUrl; // Redirects user to Spotify login
 }
@@ -14,11 +12,7 @@ function getTokenFromUrl() {
 //* this needs to be something better to let the timing work out better
 window.onload = function () {
     XML_SpotifySong();
-
-    if(check == 0){ // only does it on the second load
-        check = 1;
-    }else{ //resets it
-        access_token = getTokenFromUrl(); // Get the token after redirect
-        console.log("Access Token:", access_token); // Successfully retrieved token
-    }
+    access_token = getTokenFromUrl(); // Get the token after redirect
+    console.log("Access Token:", access_token); // Successfully retrieved token
+    
 };
