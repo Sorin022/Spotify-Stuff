@@ -1,4 +1,6 @@
 function XML_SpotifySong() { //where the data will be processed into objects
+    console.log("test");
+    
     if(xml_file !== null){
 
         //all by chatgbt a special xml parser
