@@ -6,7 +6,7 @@ function XML_SpotifySong() { //where the data will be processed into objects
     //all by chatgbt a special xml parser
     const parser = new DOMParser();
 
-    const xmlDoc = parser.parseFromString(xml_file, "application/xml");
+    const xmlDoc = parser.parseFromString(xml, "application/xml");
 
     // Get all <dict> elements inside <Tracks>
     const trackDicts = xmlDoc.querySelector("key:contains('Tracks') + dict").children;
