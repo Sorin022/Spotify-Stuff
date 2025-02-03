@@ -9,7 +9,6 @@ function choose_file(){
             reader.onload = function(e) {
                 sessionStorage.setItem("xml_file", e.target.result); //session storage to use
                 fileContent.textContent = e.target.result; //used for the file output
-                console.log("File content assigned:", e.target.result); //debugging to make sure
             };
             reader.readAsText(file); //actually sets the file
         } else {

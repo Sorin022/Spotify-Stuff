@@ -1,7 +1,7 @@
 function XML_SpotifySong() { //where the data will be processed into objects
-    console.log("test");
+    const xml_file = sessionStorage.getItem("xml_file");
 
-    const xml_file = sessionStorage.getItem("xml_theme");
+    console.log(xml_file);
 
     //all by chatgbt a special xml parser
     const parser = new DOMParser();
