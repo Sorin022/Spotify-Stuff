@@ -7,7 +7,7 @@ function choose_file(){
         if (file && file.type === 'text/xml') { //checks the input to see if the file is actually xml or not
             const reader = new FileReader(); //makes the new file reader
             reader.onload = function(e) {
-                xml_file = e.target.result; //assigns he contents of the input file to the global var
+                sessionStorage.setItem("xml_file", e.target.result); //session storage to use
                 fileContent.textContent = xml_file; //used for the file output
                 console.log("File content assigned:", xml_file); //debugging to make sure
             };
