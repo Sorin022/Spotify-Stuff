@@ -9,7 +9,7 @@ function XML_SpotifySong() { //where the data will be processed into objects
     const xmlDoc = parser.parseFromString(xml, "application/xml");
 
     // Get all <dict> elements inside <Tracks>
-    const trackDicts = xml.querySelector("key:contains('Tracks') + dict").children;
+    const trackDicts = xmlDoc.querySelector("key:contains('Tracks') + dict").children;
 
     for (let i = 0; i < trackDicts.length; i++) {
         const track = trackDicts[i].querySelector("dict");
