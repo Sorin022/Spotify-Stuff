@@ -8,7 +8,7 @@ function choose_file(){
             const reader = new FileReader(); //makes the new file reader
             reader.onload = function(e) {
                 sessionStorage.setItem("xml_file", e.target.result); //session storage to use
-                fileContent.textContent = xml_file; //used for the file output
+                fileContent.textContent = e.target.result; //used for the file output
                 console.log("File content assigned:", xml_file); //debugging to make sure
             };
             reader.readAsText(file); //actually sets the file
