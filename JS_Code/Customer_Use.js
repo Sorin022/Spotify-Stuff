@@ -16,6 +16,7 @@ window.onload = function () {
 
     if (access_token) {
         console.log("Access Token:", access_token); // Check if token exists
+        XML_SpotifySong();
     } else {
         console.log("No access token found. Please log in."); //Output if the token was not found
     }
