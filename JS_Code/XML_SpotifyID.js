@@ -1,26 +1,66 @@
-function XML_SpotifySong() { //where the data will be processed into objects
+function XML_SpotifySong() {
     const xml = sessionStorage.getItem("xml_file");
-
     console.log(xml);
 
-    //all by chatgbt a special xml parser
-    const parser = new DOMParser();
+    if (!xml) {
+        console.error("No XML data found in sessionStorage.");
+        return;
+    }
 
+    const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xml, "application/xml");
 
-    // Get all <dict> elements inside <Tracks>
-    const trackDicts = xmlDoc.querySelector("key:contains('Tracks') + dict").children;
+    // Find all <key> elements and locate the one with text "Tracks"
+    const keys = xmlDoc.getElementsByTagName("key");
+    let tracksDict = null;
 
-    for (let i = 0; i < trackDicts.length; i++) {
-        const track = trackDicts[i].querySelector("dict");
-        if (track) {
-            const name = track.querySelector("key:contains('Name') + string")?.textContent || "Unknown";
-            const artist = track.querySelector("key:contains('Artist') + string")?.textContent || "Unknown";
-            const album = track.querySelector("key:contains('Album') + string")?.textContent || "Unknown";
+    for (let key of keys) {
+        if (key.textContent === "Tracks") {
+            // The <dict> element follows the <key>
+            tracksDict = key.nextElementSibling;
+            break;
+        }
+    }
 
-            console.log(`Name: ${name}`);
-            console.log(`Artist: ${artist}`);
-            console.log(`Album: ${album}`);
+    if (!tracksDict || tracksDict.tagName !== "dict") {
+        console.error("Tracks dictionary not found.");
+        return;
+    }
+
+    // Iterate through <dict> children (which should be key-value pairs)
+    const trackEntries = tracksDict.children;
+    for (let i = 0; i < trackEntries.length; i++) {
+        if (trackEntries[i].tagName === "key") {
+            const trackDict = trackEntries[i].nextElementSibling;
+            if (trackDict && trackDict.tagName === "dict") {
+                let name = "Unknown",
+                    artist = "Unknown",
+                    album = "Unknown";
+
+                // Process each key-value pair inside the track <dict>
+                for (let j = 0; j < trackDict.children.length; j++) {
+                    const keyElement = trackDict.children[j];
+                    const valueElement = keyElement.nextElementSibling;
+
+                    if (keyElement.tagName === "key" && valueElement) {
+                        switch (keyElement.textContent) {
+                            case "Name":
+                                name = valueElement.textContent;
+                                break;
+                            case "Artist":
+                                artist = valueElement.textContent;
+                                break;
+                            case "Album":
+                                album = valueElement.textContent;
+                                break;
+                        }
+                    }
+                }
+
+                console.log(`Name: ${name}`);
+                console.log(`Artist: ${artist}`);
+                console.log(`Album: ${album}`);
+            }
         }
     }
 }
