@@ -66,7 +66,8 @@ async function XML_SpotifySong() {
 }
 
 async function createPlaylistAndAddSongs(songList) {
-    access_token = sessionStorage.getItem("token");
+    let access_token = sessionStorage.getItem("token");
+
     try {
         // 1. Get User ID
         let userResponse = await fetch("https://api.spotify.com/v1/me", {
