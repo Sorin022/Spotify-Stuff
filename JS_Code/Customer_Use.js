@@ -12,7 +12,7 @@ const getTokenFromUrl = () => {
 
 // Run this function when the page loads to check for a token
 window.onload = function () {
-    sessionStorage.setItem("token", getTokenFromUrl); //session storage to use
+    sessionStorage.setItem("token", getTokenFromUrl()); //session storage to use
 
     if (sessionStorage.getItem("token") != null) {
         XML_SpotifySong();
