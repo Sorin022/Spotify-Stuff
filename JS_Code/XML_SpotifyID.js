@@ -67,14 +67,13 @@ async function XML_SpotifySong() {
 
 async function createPlaylistAndAddSongs(songList) {
     let access_token = sessionStorage.getItem("token");
-    console.log(access_token);
 
     try {
         // 1. Get User ID
         let userResponse = await fetch("https://api.spotify.com/v1/me", {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${access_token}`,
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 "Content-Type": "application/json",
             },
         });
@@ -87,7 +86,7 @@ async function createPlaylistAndAddSongs(songList) {
         let playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${access_token}`,
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -111,7 +110,7 @@ async function createPlaylistAndAddSongs(songList) {
             let searchResponse = await fetch(`https://api.spotify.com/v1/search?q=${encodedQuery}&type=track&limit=1`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${access_token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
             });
@@ -132,7 +131,7 @@ async function createPlaylistAndAddSongs(songList) {
             let addTrackResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${access_token}`,
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
