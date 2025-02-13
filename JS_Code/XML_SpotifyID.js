@@ -67,6 +67,7 @@ async function XML_SpotifySong() {
 
 async function createPlaylistAndAddSongs(songList) {
     let access_token = sessionStorage.getItem("token");
+    console.log(access_token);
 
     try {
         // 1. Get User ID

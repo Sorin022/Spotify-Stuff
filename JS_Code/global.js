@@ -4,4 +4,3 @@ let scopes = 'user-library-modify playlist-read-private'; //needed to tell what 
 let authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
   redirectUri
 )}&response_type=token&scope=${encodeURIComponent(scopes)}`; //redirect url for the loging and such
-let access_token = null; //access token of the user
