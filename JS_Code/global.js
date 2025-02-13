@@ -5,4 +5,3 @@ let authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redi
   redirectUri
 )}&response_type=token&scope=${encodeURIComponent(scopes)}`; //redirect url for the loging and such
 let access_token = null; //access token of the user
-let songs_to_add = null; //the list of songs to add

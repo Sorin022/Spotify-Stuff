@@ -12,10 +12,9 @@ const getTokenFromUrl = () => {
 
 // Run this function when the page loads to check for a token
 window.onload = function () {
-    access_token = getTokenFromUrl(); // Get the token after redirection
+    sessionStorage.setItem("token", getTokenFromUrl); //session storage to use
 
-    if (access_token) {
-        console.log("Access Token:", access_token); // Check if token exists
+    if (sessionStorage.getItem("token") != null) {
         XML_SpotifySong();
     } else {
         console.log("No access token found. Please log in."); //Output if the token was not found
