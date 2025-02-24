@@ -65,20 +65,10 @@ async function XML_SpotifySong() {
     await createPlaylistAndAddSongs(songList);
 }
 
-function isTokenExpired() {
-    const expiryTime = sessionStorage.getItem("token_expiry");
-    return !expiryTime || Date.now() > expiryTime;
-}
-
 async function createPlaylistAndAddSongs(songList) {
-    if (isTokenExpired()) {
-        console.error("Access token expired. Please log in again.");
-        return;
-    }
-
     let accessToken = sessionStorage.getItem("token");
 
-    try {
+    /*try {
         // 1. Get User ID
         let userResponse = await fetch("https://api.spotify.com/v1/me", {
             method: "GET",
@@ -160,5 +150,22 @@ async function createPlaylistAndAddSongs(songList) {
         }
     } catch (error) {
         console.error("Error:", error);
-    }
+    }*/
+
+    fetch('https://api.spotify.com/v1/me/tracks', {
+    method: 'PUT',
+    headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ids: ['3n3Ppam7vgaVa1iaRUc9Lp'] }),
+    })
+    .then((response) => {
+        if (response.ok) {
+        console.log('Song added successfully!');
+        } else {
+        console.error('Failed to add song:', response.statusText);
+        }
+    })
+    .catch(console.error);
 }
