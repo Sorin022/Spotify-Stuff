@@ -65,7 +65,17 @@ async function XML_SpotifySong() {
     await createPlaylistAndAddSongs(songList);
 }
 
+function isTokenExpired() {
+    const expiryTime = sessionStorage.getItem("token_expiry");
+    return !expiryTime || Date.now() > expiryTime;
+}
+
 async function createPlaylistAndAddSongs(songList) {
+    if (isTokenExpired()) {
+        console.error("Access token expired. Please log in again.");
+        return;
+    }
+
     let accessToken = sessionStorage.getItem("token");
 
     try {

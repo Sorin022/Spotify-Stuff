@@ -12,11 +12,15 @@ const getTokenFromUrl = () => {
 
 // Run this function when the page loads to check for a token
 window.onload = function () {
-    sessionStorage.setItem("token", getTokenFromUrl()); //session storage to use
+    const token = getTokenFromUrl();
+    if (token) {
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("token_expiry", Date.now() + 3600 * 1000); // Store expiry time (1 hour)
 
-    if (sessionStorage.getItem("token") != null) {
-        XML_SpotifySong();
+        window.history.replaceState({}, document.title, window.location.pathname); // Clean URL
+
+        XML_SpotifySong(); // Run the function to process XML songs
     } else {
-        console.log("No access token found. Please log in."); //Output if the token was not found
+        console.log("No access token found. Please log in.");
     }
 };
