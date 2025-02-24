@@ -68,6 +68,7 @@ async function XML_SpotifySong() {
 async function createPlaylistAndAddSongs(songList) {
     let accessToken = sessionStorage.getItem("token");
 
+    //this does not work
     // 1. Get User ID
     let userResponse = await fetch("https://api.spotify.com/v1/me", {
         method: "GET",
@@ -148,6 +149,8 @@ async function createPlaylistAndAddSongs(songList) {
         console.log("No valid songs found to add.");
     }
 
+
+    //this part works with the token
     /*fetch('https://api.spotify.com/v1/me/tracks', {
     method: 'PUT',
     headers: {
