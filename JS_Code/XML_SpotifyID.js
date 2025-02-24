@@ -81,6 +81,7 @@ async function createPlaylistAndAddSongs(songList) {
         let userData = await userResponse.json();
         let userId = userData.id;
         console.log("User ID:", userId);
+        console.log("Access Token:", accessToken);
 
         // 2. Create Playlist
         let playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
