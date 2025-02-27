@@ -84,7 +84,7 @@ async function createPlaylistAndAddSongs(songList) {
     console.log("Access Token:", accessToken);
 
     // 2. Create Playlist
-    let playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    let playlistResponse = await fetch(`https://api.spotify.com/v1/users/` + userId + `/playlists`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -108,7 +108,7 @@ async function createPlaylistAndAddSongs(songList) {
         let query = `track:${song.name} album:${song.album} artist:${song.artist}`;
         let encodedQuery = encodeURIComponent(query);
 
-        let searchResponse = await fetch(`https://api.spotify.com/v1/search?q=${encodedQuery}&type=track&limit=1`, {
+        let searchResponse = await fetch(`https://api.spotify.com/v1/search?q=` + encodedQuery + `&type=track&limit=1`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -129,7 +129,7 @@ async function createPlaylistAndAddSongs(songList) {
 
     // 4. Add All Found Tracks to Playlist
     if (trackUris.length > 0) {
-        let addTrackResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        let addTrackResponse = await fetch(`https://api.spotify.com/v1/playlists/` +  playlistId + `/tracks`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -158,7 +158,6 @@ async function createPlaylistAndAddSongs(songList) {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({ ids: ['3n3Ppam7vgaVa1iaRUc9Lp'] }),
-    body: JSON.stringify({ ids: ['4A65rF6f8pCaAvYqgcfaWN'] }),
     })
     .then((response) => {
         if (response.ok) {
