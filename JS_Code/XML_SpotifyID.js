@@ -68,7 +68,7 @@ async function XML_SpotifySong() {
 async function createPlaylistAndAddSongs(songList) {
     let accessToken = sessionStorage.getItem("token");
 
-    //this does not work
+    //this does work uses the access token and is happy
     // 1. Get User ID
     let userResponse = await fetch("https://api.spotify.com/v1/me", {
         method: "GET",
@@ -79,10 +79,12 @@ async function createPlaylistAndAddSongs(songList) {
     });
 
     let userData = await userResponse.json();
-    let userId = userData.id;
+    let userId = userData.display_name;
     console.log("User ID:", userId);
     console.log("Access Token:", accessToken);
 
+    //why does it break when it comes to this access token
+    //seems to be that this is a post and not a get
     // 2. Create Playlist
     let playlistResponse = await fetch(`https://api.spotify.com/v1/users/` + userId + `/playlists`, {
         method: "POST",
