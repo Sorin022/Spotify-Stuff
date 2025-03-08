@@ -1,6 +1,8 @@
 // Function to handle login
-function customer_login() {
-    window.location.href = authUrl; // Redirect the user to Spotify login
+function customer_login(current_location) {
+    window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        current_location
+    )}&response_type=token&scope=${encodeURIComponent(scopes)}`; // Redirect the user to Spotify login
 }
 
 // Function to extract the access token from URL after redirect

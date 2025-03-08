@@ -79,7 +79,7 @@ async function createPlaylistAndAddSongs(songList) {
     });
 
     let userData = await userResponse.json();
-    let userId = userData.display_name;
+    let userId = userData.id;
     console.log("User ID:", userId);
     console.log("Access Token:", accessToken);
 
