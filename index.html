@@ -34,6 +34,13 @@
 <body>
     <h1>Upload a XML File</h1>
     <input type="file" id="fileInput" accept=".xml" onclick="choose_file();">
+    <input type="button"
+        id = "customer_login"
+        name="customer_login"
+        class="button"
+        value="Add Songs" 
+        tabindex="2"
+        onclick="customer_login(window.location.href);">
     <textarea id="fileContent" readonly placeholder="File content will appear here..."></textarea>
 
     <h2>Songs To Be Added</h2>
@@ -44,18 +51,26 @@
 
     <br>
 
-    <input type="button"
-        id = "customer_login"
-        name="customer_login"
-        class="button"
-        value="Add Songs" 
-        tabindex="2"
-        onclick="customer_login(window.location.href);">
+    <div style="float: left;">
+        <h2>Logs</h2>
 
-    <h2>Logs</h2>
+        <ul id="logging_list">
+        </ul>
+    </div>
 
-    <ul id="logging_list">
-    </ul>
+    <div style="float: right;">
+        <h2>Instructions</h2>
+
+        <ul>
+            <li>Click: Choose File</li>
+            <li>Pick file</li>
+            <li>Click: Add Songs</li>
+            <li>Loggin to Spotify Account</li>
+            <li>Watch the Magic Happen</li>
+        </ul>
+    </div>
+
+
 
 </body>
 </html>
