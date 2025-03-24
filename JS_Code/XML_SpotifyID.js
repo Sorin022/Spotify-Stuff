@@ -1,13 +1,17 @@
 async function XML_SpotifySong() {
-    const xml = sessionStorage.getItem("xml_file");
+    const xml = sessionStorage.getItem("xml_file"); //variable for the xml data pulling from session storage
+    const adding_song_html = document.getElementById("add_songs_table"); //table to add the artist, songs, and ablums too
+    const logging_list = document.getElementById("logging_list"); //for the logging html 
 
     if (!xml) {
-        console.error("No XML data found in sessionStorage.");
+        //error messager if there is no xml data
+        logging_list.innerHTML = logging_list.innerHTML + "<li>ERROR: No XML data found in sessionStorage.</li>"
         return;
     }
 
+    //creates a parser for the xml file this parser will find the albumn, artist name, and song
     const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xml, "application/xml");
+    const xmlDoc = parser.parseFromString(xml, "application/xml"); //changing the xml file from session storage to a more maluable version
 
     const keys = xmlDoc.getElementsByTagName("key");
     let tracksDict = null;
@@ -20,10 +24,11 @@ async function XML_SpotifySong() {
     }
 
     if (!tracksDict || tracksDict.tagName !== "dict") {
-        console.error("Tracks dictionary not found.");
+        logging_list.innerHTML = logging_list.innerHTML + "<li>ERROR: Tracks dictionary not found</li>"
         return;
     }
 
+    //list of all the songs when they are found and such
     let songList = [];
 
     const trackEntries = tracksDict.children;
@@ -31,6 +36,7 @@ async function XML_SpotifySong() {
         if (trackEntries[i].tagName === "key") {
             const trackDict = trackEntries[i].nextElementSibling;
             if (trackDict && trackDict.tagName === "dict") {
+                //default values for the name artist and album to check with
                 let name = "Unknown",
                     artist = "Unknown",
                     album = "Unknown";
@@ -41,31 +47,36 @@ async function XML_SpotifySong() {
 
                     if (keyElement.tagName === "key" && valueElement) {
                         switch (keyElement.textContent) {
-                            case "Name":
+                            case "Name": //song name 
                                 name = valueElement.textContent;
                                 break;
-                            case "Artist":
+                            case "Artist": //artist on the song in the xml file
                                 artist = valueElement.textContent;
                                 break;
-                            case "Album":
+                            case "Album": //album of the song with that artist
                                 album = valueElement.textContent;
                                 break;
                         }
                     }
                 }
 
-                if (name !== "Unknown" && artist !== "Unknown" && album !== "Unknown") {
+                //if any of the value have not been changed from the default then do not added
+                //also cancels out the double ups
+                if (name !== "Unknown" && artist !== "Unknown" && album !== "Unknown") { 
                     songList.push({ name, artist, album });
+
+                    adding_song_html.innerHTML = adding_song_html.innerHTML + "<tr><td>" + name + "</td>" + "<td>" + artist + "</td>" + "<td>" + album + "</td>"
                 }
             }
         }
     }
 
-    console.log("Extracted Songs:", songList);
+    //console.log("Extracted Songs:", songList);
     await createPlaylistAndAddSongs(songList);
 }
 
 async function createPlaylistAndAddSongs(songList) {
+    const logging_list = document.getElementById("logging_list"); //for the logging html
     let accessToken = sessionStorage.getItem("token");
 
     //this does work uses the access token and is happy
@@ -80,8 +91,6 @@ async function createPlaylistAndAddSongs(songList) {
 
     let userData = await userResponse.json();
     let userId = userData.id;
-    console.log("User ID:", userId);
-    console.log("Access Token:", accessToken);
 
     //why does it break when it comes to this access token
     //seems to be that this is a post and not a get
@@ -101,7 +110,7 @@ async function createPlaylistAndAddSongs(songList) {
 
     let playlistData = await playlistResponse.json();
     let playlistId = playlistData.id;
-    console.log("Playlist Created:", playlistData.name);
+    logging_list.innerHTML = logging_list.innerHTML + "<li>" + "Playlist Created:" + playlistData.name + "</li>";
 
     // 3. Search for Tracks and Add to Playlist
     let trackUris = [];
@@ -123,9 +132,9 @@ async function createPlaylistAndAddSongs(songList) {
         if (searchData.tracks.items.length > 0) {
             let trackId = searchData.tracks.items[0].id;
             trackUris.push(`spotify:track:${trackId}`);
-            console.log(`Found: ${song.name} - ${song.artist}`);
+            logging_list.innerHTML = logging_list.innerHTML + "<li>" + `Found: ${song.name} - ${song.artist}` + "</li>";
         } else {
-            console.log(`Not Found: ${song.name} - ${song.artist}`);
+            logging_list.innerHTML = logging_list.innerHTML + "<li>" + `Not Found: ${song.name} - ${song.artist}` + "</li>";
         }
     }
 
@@ -143,31 +152,12 @@ async function createPlaylistAndAddSongs(songList) {
         });
 
         if (addTrackResponse.ok) {
-            console.log("Songs added to playlist successfully!");
+            logging_list.innerHTML = logging_list.innerHTML + "<li>Songs added to playlist successfully!</li>";
         } else {
-            console.error("Failed to add songs:", addTrackResponse.statusText);
+            logging_list.innerHTML = logging_list.innerHTML + "<li>Failed to add songs:" + addTrackResponse.statusText + "</li>";
         }
     } else {
         console.log("No valid songs found to add.");
     }
-
-
-    //this part works with the token
-    /*fetch('https://api.spotify.com/v1/me/tracks', {
-    method: 'PUT',
-    headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ ids: ['3n3Ppam7vgaVa1iaRUc9Lp'] }),
-    })
-    .then((response) => {
-        if (response.ok) {
-        console.log('Song added successfully!');
-        } else {
-        console.error('Failed to add song:', response.statusText);
-        }
-    })
-    .catch(console.error);*/
 
 }

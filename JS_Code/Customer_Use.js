@@ -15,6 +15,7 @@ const getTokenFromUrl = () => {
 // Run this function when the page loads to check for a token
 window.onload = function () {
     const token = getTokenFromUrl();
+    const logging_list = document.getElementById("logging_list");
     if (token) {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("token_expiry", Date.now() + 3600 * 1000); // Store expiry time (1 hour)
@@ -23,6 +24,7 @@ window.onload = function () {
 
         XML_SpotifySong(); // Run the function to process XML songs
     } else {
-        console.log("No access token found. Please log in.");
+        logging_list.innerHTML = logging_list.innerHTML + "<li>No access token found. Please log in.</li>"
+        //console.log("No access token found. Please log in.");
     }
 };

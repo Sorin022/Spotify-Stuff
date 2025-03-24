@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+    table, th, td {
+      border:1px solid black;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +36,14 @@
     <input type="file" id="fileInput" accept=".xml" onclick="choose_file();">
     <textarea id="fileContent" readonly placeholder="File content will appear here..."></textarea>
 
+    <h2>Songs To Be Added</h2>
+
+    <table style="width:100%" id="add_songs_table">
+        
+    </table>
+
+    <br>
+
     <input type="button"
         id = "customer_login"
         name="customer_login"
@@ -37,5 +51,11 @@
         value="Add Songs" 
         tabindex="2"
         onclick="customer_login(window.location.href);">
+
+    <h2>Logs</h2>
+
+    <ul id="logging_list">
+    </ul>
+
 </body>
 </html>
