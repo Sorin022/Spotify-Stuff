@@ -1,5 +1,3 @@
-//can not find the song since the name is just Flashing Lights and not Flashing Lights (feat. XXXXXXXX)
-
 async function XML_SpotifySong() {
     const xml = sessionStorage.getItem("xml_file"); //variable for the xml data pulling from session storage
     const adding_song_html = document.getElementById("add_songs_table"); //table to add the artist, songs, and ablums too
@@ -51,6 +49,7 @@ async function XML_SpotifySong() {
                         switch (keyElement.textContent) {
                             case "Name": //song name 
                                 name = valueElement.textContent;
+                                name = name.replace(/\s*\(feat\..*?\)/i, '');
                                 break;
                             case "Artist": //artist on the song in the xml file
                                 artist = valueElement.textContent;
